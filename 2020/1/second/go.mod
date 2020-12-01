@@ -1,3 +1,3 @@
-module 2
+module 1
 
 go 1.15
