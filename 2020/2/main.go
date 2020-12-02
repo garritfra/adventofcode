@@ -16,11 +16,12 @@ func main() {
 	}
 	lines := strings.Split(string(data), "\n")
 
-	first(lines)
+	fmt.Println("First result:", first(lines))
+	fmt.Println("Second result:", second(lines))
 
 }
 
-func first(lines []string) {
+func first(lines []string) interface{} {
 	result := 0
 	for _, line := range lines {
 		components := strings.FieldsFunc(string(line), split)
@@ -44,7 +45,27 @@ func first(lines []string) {
 		matches = 0
 	}
 
-	fmt.Println(result)
+	return result
+}
+
+func second(lines []string) interface{} {
+	result := 0
+	for _, line := range lines {
+		components := strings.FieldsFunc(string(line), split)
+		min, _ := strconv.Atoi(components[0])
+		max, _ := strconv.Atoi(components[1])
+		target := components[2]
+		password := components[3]
+
+		letters := strings.Split(password, "")
+
+		// Bloated XOR
+		if (letters[min-1] == target && letters[max-1] != target) || (letters[min-1] != target && letters[max-1] == target) {
+			result++
+		}
+	}
+
+	return result
 }
 
 func split(r rune) bool {
