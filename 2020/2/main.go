@@ -9,8 +9,6 @@ import (
 
 func main() {
 
-	result := 0
-
 	data, err := ioutil.ReadFile("input.txt")
 	if err != nil {
 		fmt.Println("File reading error", err)
@@ -18,6 +16,12 @@ func main() {
 	}
 	lines := strings.Split(string(data), "\n")
 
+	first(lines)
+
+}
+
+func first(lines []string) {
+	result := 0
 	for _, line := range lines {
 		components := strings.FieldsFunc(string(line), split)
 		min, _ := strconv.Atoi(components[0])
@@ -41,7 +45,6 @@ func main() {
 	}
 
 	fmt.Println(result)
-
 }
 
 func split(r rune) bool {
