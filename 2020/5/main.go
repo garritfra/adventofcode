@@ -22,7 +22,26 @@ func main() {
 
 func first(lines []string) interface{} {
 	highest := 0
-	for _, line := range lines {
+	for _, id := range makeIds(lines) {
+
+		if id > highest {
+			highest = id
+		}
+
+	}
+	return highest
+}
+
+func second(lines []string) interface{} {
+
+	return 0
+}
+
+func makeIds(lines []string) []int {
+
+	ids := make([]int, len(lines))
+
+	for i, line := range lines {
 		rows := make([]int, 128)
 
 		for i := range rows {
@@ -48,8 +67,9 @@ func first(lines []string) interface{} {
 			columns[i] = i
 		}
 
-		for _, c := range line[8:10] {
-			if string(c) == "L" {
+		for _, raw := range line[7:9] {
+			c := string(raw)
+			if c == "L" {
 				// Keep lower part
 				newSeats := make([]int, len(columns)/2)
 				newSeats = columns[0 : len(columns)/2]
@@ -66,14 +86,18 @@ func first(lines []string) interface{} {
 		column := columns[0]
 		id := row*8 + column
 
-		if id > highest {
-			highest = id
-		}
-
+		ids[i] = id
 	}
-	return highest
+
+	return ids
+
 }
 
-func second(lines []string) interface{} {
-	return 0
+func contains(list []int, x int) bool {
+	for _, item := range list {
+		if item == x {
+			return true
+		}
+	}
+	return false
 }
