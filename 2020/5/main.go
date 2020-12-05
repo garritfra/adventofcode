@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -33,71 +35,38 @@ func first(lines []string) interface{} {
 }
 
 func second(lines []string) interface{} {
+	ids := makeIds(lines)
+	sort.Ints(ids)
 
+	for i, id := range ids {
+		if ids[i+1] != id+1 {
+			return id + 1
+		}
+	}
 	return 0
 }
 
 func makeIds(lines []string) []int {
 
-	ids := make([]int, len(lines))
+	ids := make([]int, 0)
 
-	for i, line := range lines {
-		rows := make([]int, 128)
+	for _, line := range lines {
+		binary := ""
 
-		for i := range rows {
-			rows[i] = i
-		}
-
-		for _, c := range line[0:7] {
-			if string(c) == "F" {
+		for _, c := range line {
+			if string(c) == "F" || string(c) == "L" {
 				// Keep lower part
-				newSeats := make([]int, len(rows)/2)
-				newSeats = rows[0 : len(rows)/2]
-				rows = newSeats
-			} else {
+				binary += "0"
+			} else if string(c) == "R" || string(c) == "B" {
 				// Keep upper part
-				newSeats := make([]int, len(rows)/2)
-				newSeats = rows[len(rows)/2 : len(rows)]
-				rows = newSeats
+				binary += "1"
 			}
 		}
 
-		columns := make([]int, 8)
-		for i := range columns {
-			columns[i] = i
-		}
-
-		for _, raw := range line[7:9] {
-			c := string(raw)
-			if c == "L" {
-				// Keep lower part
-				newSeats := make([]int, len(columns)/2)
-				newSeats = columns[0 : len(columns)/2]
-				columns = newSeats
-			} else {
-				// Keep upper part
-				newSeats := make([]int, len(columns)/2)
-				newSeats = columns[len(columns)/2 : len(columns)]
-				columns = newSeats
-			}
-		}
-
-		row := rows[0]
-		column := columns[0]
-		id := row*8 + column
-
-		ids[i] = id
+		id, _ := strconv.ParseInt(binary, 2, 64)
+		ids = append(ids, int(id))
 	}
 
 	return ids
 
-}
-
-func contains(list []int, x int) bool {
-	for _, item := range list {
-		if item == x {
-			return true
-		}
-	}
-	return false
 }
