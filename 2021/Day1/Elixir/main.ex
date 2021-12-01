@@ -26,8 +26,25 @@ defmodule Day1 do
     end)
   end
 
+  def sliding_window([first_depth, second_depth, third_depth | tail]) do
+    sum = first_depth + second_depth + third_depth
+    sliding_window([second_depth, third_depth] ++ tail, sum, 0)
+  end
+
+  def sliding_window([first_depth, second_depth, third_depth | tail], previous_sum, counter) do
+    sum = first_depth + second_depth + third_depth
+    new_counter = if sum > previous_sum do
+      counter + 1
+    else
+      counter
+    end
+    sliding_window([second_depth, third_depth] ++ tail, sum, new_counter)
+  end
+
+  def sliding_window(rest, previous_sum, counter), do: counter
+
   @spec second([Integer]) :: Integer
   def second(input) do
-    :second
+    sliding_window(input)
   end
 end
