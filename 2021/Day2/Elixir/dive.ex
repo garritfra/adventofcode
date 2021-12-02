@@ -34,8 +34,30 @@ defmodule Dive do
     |> dive
   end
 
-  @spec second([Integer]) :: Integer
-  def second(input) do
-    :second
+  def dive_aimed(input) do
+    dive_aimed(input, {0, 0, 0})
+  end
+
+  def dive_aimed([], {depth, horizontal, _}), do: depth * horizontal
+
+  def dive_aimed(["forward", amount_str | tail], {depth, horizontal, aim}) do
+    amount = String.to_integer amount_str
+    dive_aimed(tail, {depth + aim * amount, horizontal + amount, aim})
+  end
+
+  def dive_aimed(["down", amount_str | tail], {depth, horizontal, aim}) do
+    amount = String.to_integer amount_str
+    dive_aimed(tail, {depth, horizontal, aim + amount})
+  end
+
+  def dive_aimed(["up", amount_str | tail], {depth, horizontal, aim}) do
+    amount = String.to_integer amount_str
+    dive_aimed(tail, {depth, horizontal, aim - amount})
+  end
+
+  @spec second() :: Integer
+  def second() do
+    Dive.load_file
+    |> dive_aimed
   end
 end
