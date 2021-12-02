@@ -1,11 +1,12 @@
 # Advent of Code
 
-This code may contain spoilers, if you haven't finished the puzzles over on https://adventofcode.com.
+This code may contain spoilers, if you haven't finished the puzzles over on
+https://adventofcode.com.
 
 ## Running
 
-Paste your input in a file named `input.txt` in the root of the project of the
-desired language. After that, follow the instructions for each language:
+Paste your input in a file named `input.txt` in the root of the project. After
+that, follow the instructions for each language:
 
 ### Rust
 

@@ -19,7 +19,7 @@ with open("input.txt") as f:
     print(f"Product: {horizontal * depth}")
 
 # Part 2
-with open("input.txt") as f:
+with open("../input.txt") as f:
     lines = map(lambda l: l.strip(), f.readlines())
     aim = 0
     depth = 0
