@@ -45,7 +45,7 @@ defmodule GiantSquid do
         end
       end)
 
-    if Enum.all?(Enum.map(boards, &(elem(&1, 2)))) do
+    if Enum.all?(Enum.map(boards, &elem(&1, 2))) do
       boards
     else
       play_all_drawn_numbers(boards_after_game, tail)
@@ -122,7 +122,5 @@ defmodule GiantSquid do
       |> Enum.sum()
 
     undrawn_sum * last_drawn
-
-
   end
 end
