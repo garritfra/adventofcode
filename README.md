@@ -32,3 +32,9 @@ Node.js needs to be installed as a runtime.
 ```sh
 sb run main.sb
 ```
+
+### Terraform
+
+```
+terraform plan
+```
