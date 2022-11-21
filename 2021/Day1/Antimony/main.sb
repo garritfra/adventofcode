@@ -1,0 +1,21 @@
+
+fn main() {
+    let data = "199\n200\n208\n210\n200\n207\n240\n269\n260\n263"
+    let nums = data.split("\n")
+
+    console.log("Part 1:", part1(nums))
+}
+
+fn part1(nums: int[]): int {
+    let count = 0
+    let last = nums[0]
+
+    for val in nums {
+        if val > last {
+            count += 1
+        }
+        last = val
+    }
+
+    return count
+}

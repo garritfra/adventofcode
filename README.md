@@ -24,3 +24,11 @@ iex(2)> DayX.load_file |> DayX.first
 YOUR ANSWER
 iex(3)>
 ```
+
+### [Antimony](https://github.com/antimony-lang/antimony)
+
+Node.js needs to be installed as a runtime.
+
+```sh
+sb run main.sb
+```
