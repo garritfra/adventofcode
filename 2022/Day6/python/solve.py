@@ -1,5 +1,4 @@
 import os
-import re
 
 
 def solve(line, min_different):
