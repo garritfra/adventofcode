@@ -12,7 +12,7 @@ const part1 = (lines) => {
     blue: 14,
   };
 
-  games = lines.map((line) => {
+  const games = lines.map((line) => {
     const [game, results] = line.split(": ");
     const [raw, id] = game.match(/Game (\d+)/);
 
@@ -36,4 +36,29 @@ const part1 = (lines) => {
     .reduce((sum, { id }) => sum + id, 0);
 };
 
+const part2 = (lines) => {
+  const games = lines.map((line) => {
+    const [game, results] = line.split(": ");
+    const [raw, id] = game.match(/Game (\d+)/);
+
+    const sets = results.split("; ");
+    const highest = { red: 0, green: 0, blue: 0 };
+
+    for (const set of sets) {
+      const entries = set.split(", ");
+      for (const entry of entries) {
+        const [raw, amount, color] = entry.match(/(\d+) ([a-z]*)/);
+        const amountParsed = Number.parseInt(amount, 10);
+        if (amountParsed > highest[color]) {
+          highest[color] = amountParsed;
+        }
+      }
+    }
+    return highest.red * highest.blue * highest.green;
+  });
+
+  return games.reduce((acc, curr) => acc + curr, 0);
+};
+
 console.log(part1(input));
+console.log(part2(input));
